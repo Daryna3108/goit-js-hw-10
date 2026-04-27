@@ -12,6 +12,8 @@ const timerFields = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
+startBtn.disabled = true;
+
 let userSelectedDate = null;
 let timerId = null;
 
@@ -23,7 +25,7 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
 
-    if (userSelectedDate < new Date()) {
+    if (userSelectedDate <= new Date()) {
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
@@ -45,13 +47,6 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
-function updateTimerInterface({ days, hours, minutes, seconds }) {
-  timerFields.days.textContent = addLeadingZero(days);
-  timerFields.hours.textContent = addLeadingZero(hours);
-  timerFields.minutes.textContent = addLeadingZero(minutes);
-  timerFields.seconds.textContent = addLeadingZero(seconds);
-}
-
 startBtn.addEventListener('click', () => {
   startBtn.disabled = true;
   datetimePicker.disabled = true;
@@ -71,6 +66,13 @@ startBtn.addEventListener('click', () => {
     updateTimerInterface(time);
   }, 1000);
 });
+
+function updateTimerInterface({ days, hours, minutes, seconds }) {
+  timerFields.days.textContent = addLeadingZero(days);
+  timerFields.hours.textContent = addLeadingZero(hours);
+  timerFields.minutes.textContent = addLeadingZero(minutes);
+  timerFields.seconds.textContent = addLeadingZero(seconds);
+}
 
 function convertMs(ms) {
   const second = 1000;
