@@ -12,6 +12,7 @@ const timerFields = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
+// Явно вимикаємо кнопку на старті
 startBtn.disabled = true;
 
 let userSelectedDate = null;
@@ -25,7 +26,8 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
 
-    if (userSelectedDate <= new Date()) {
+    // Сувора валідація (майбутній час)
+    if (userSelectedDate <= Date.now()) {
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
@@ -52,11 +54,12 @@ startBtn.addEventListener('click', () => {
   datetimePicker.disabled = true;
 
   timerId = setInterval(() => {
-    const currentTime = new Date();
-    const deltaTime = userSelectedDate - currentTime;
+    // Використовуємо Date.now() для ефективності
+    const deltaTime = userSelectedDate - Date.now();
 
     if (deltaTime <= 0) {
       clearInterval(timerId);
+      timerId = null; // Очищення ID для простоти стану
       updateTimerInterface({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       datetimePicker.disabled = false;
       return;
