@@ -28,6 +28,9 @@ const options = {
         title: 'Error',
         message: 'Please choose a date in the future',
         position: 'topRight',
+        backgroundColor: '#ef4040',
+        titleColor: '#fff',
+        messageColor: '#fff',
       });
       startBtn.disabled = true;
     } else {

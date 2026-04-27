@@ -1,30 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+/* --- RESET & FONTS --- */
+body {
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+  background-color: #fafafa;
+  color: #2e2f42;
+  margin: 0;
+}
+
 h1,
 h2,
 h3,
-h4,
-h5,
-h6,
 p {
   margin: 0;
-}
-
-p:last-child {
-  margin-bottom: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-a {
-  color: currentColor;
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
 }
 
 img {
@@ -33,63 +22,137 @@ img {
   height: auto;
 }
 
+/* --- COMMON NAVIGATION (Go Back) --- */
+/* Стилізуємо всі посилання, що ведуть назад */
+a[href="/"],
+a[href="./index.html"],
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2e2f42;
+  font-weight: 500;
+  margin-bottom: 24px;
+  transition: color 250ms ease;
+}
+
+a[href="/"]::before,
+a[href="./index.html"]::before,
+.back-link::before {
+  content: "←";
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+a[href="/"]:hover,
+.back-link:hover {
+  color: #4e75ff;
+}
+
+/* --- INDEX PAGE (Home Menu) --- */
+.home-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 300px;
+  margin: 20px auto;
+}
+
+.home-list a {
+  display: block;
+  padding: 12px 20px;
+  background-color: #f4f4fd;
+  color: #4e75ff;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid #4e75ff;
+  font-weight: 500;
+  transition: all 250ms ease;
+  text-align: center;
+}
+
+.home-list a:hover {
+  background-color: #4e75ff;
+  color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- TASK 1: TIMER --- */
+#datetime-picker {
+  width: 272px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Прибираємо іконку календаря */
+#datetime-picker::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+button[data-start] {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #4e75ff;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 250ms ease;
+}
+
+button[data-start]:hover:not(:disabled) {
+  background-color: #6c8cff;
+}
+
+button[data-start]:disabled {
+  background: #cfcfcf;
+  color: #989898;
+  cursor: not-allowed;
+}
+
 .timer {
   display: flex;
   gap: 24px;
-  margin-top: 20px;
+  margin-top: 32px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60px;
 }
 
 .value {
   font-size: 32px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .label {
   font-size: 12px;
   text-transform: uppercase;
-  color: #808080;
 }
 
-#datetime-picker {
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #808080;
-  border-radius: 4px;
-}
-
-button[data-start] {
-  padding: 8px 16px;
-  background-color: #4e75ff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button[data-start]:disabled {
-  background-color: #cfcfcf;
-  cursor: not-allowed;
-}
-
+/* --- TASK 2: SNACKBAR FORM --- */
 .form {
   display: flex;
   flex-direction: column;
   gap: 16px;
   max-width: 360px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 24px;
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
 }
 
-fieldset {
+.form fieldset {
   display: flex;
   gap: 20px;
   border: 1px solid #808080;
@@ -116,8 +179,8 @@ button[type="submit"] {
   color: white;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: 500;
+  transition: background-color 250ms ease;
 }
 
 button[type="submit"]:hover {
