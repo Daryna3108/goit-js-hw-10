@@ -45,30 +45,32 @@ function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
 
-startBtn.addEventListener('click', () => {
-  startBtn.disabled = true;
-  datetimePicker.disabled = true;
-
-  timerId = setInterval(() => {
-    const diff = userSelectedDate - new Date();
-
-    if (diff <= 0) {
-      clearInterval(timerId);
-      datetimePicker.disabled = false;
-      return;
-    }
-
-    const time = convertMs(diff);
-    updateTimerInterface(time);
-  }, 1000);
-});
-
 function updateTimerInterface({ days, hours, minutes, seconds }) {
   timerFields.days.textContent = addLeadingZero(days);
   timerFields.hours.textContent = addLeadingZero(hours);
   timerFields.minutes.textContent = addLeadingZero(minutes);
   timerFields.seconds.textContent = addLeadingZero(seconds);
 }
+
+startBtn.addEventListener('click', () => {
+  startBtn.disabled = true;
+  datetimePicker.disabled = true;
+
+  timerId = setInterval(() => {
+    const currentTime = new Date();
+    const deltaTime = userSelectedDate - currentTime;
+
+    if (deltaTime <= 0) {
+      clearInterval(timerId);
+      updateTimerInterface({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      datetimePicker.disabled = false;
+      return;
+    }
+
+    const time = convertMs(deltaTime);
+    updateTimerInterface(time);
+  }, 1000);
+});
 
 function convertMs(ms) {
   const second = 1000;
